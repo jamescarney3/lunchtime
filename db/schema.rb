@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_205658) do
+ActiveRecord::Schema.define(version: 2018_11_07_221807) do
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name"
+    t.string "menu_url"
+    t.string "note"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.string "order"
     t.string "session_token"
   end
 
