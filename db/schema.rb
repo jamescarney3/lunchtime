@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_221807) do
+ActiveRecord::Schema.define(version: 2018_11_08_210550) do
+
+  create_table "order_groups", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "restaurant_id", null: false
+    t.index ["restaurant_id"], name: "index_order_groups_on_restaurant_id"
+    t.index ["user_id"], name: "index_order_groups_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "order_group_id", null: false
+    t.text "text", null: false
+    t.text "note"
+    t.index ["order_group_id"], name: "index_orders_on_order_group_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
