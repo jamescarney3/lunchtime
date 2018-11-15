@@ -10,7 +10,6 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.create(restaurant_params)
-
     if !@restaurant.nil?
       render json: @restaurant
     else
@@ -28,7 +27,7 @@ class Api::RestaurantsController < ApplicationController
   end
 
   # admin protect this?
-  def delete
+  def destroy
     @restaurant = Restaurant.find(params[:id])
     if @restaurant.delete
       render json: @restaurant
@@ -40,6 +39,6 @@ class Api::RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:id, :name, :menu_url, :note)
+    params.require(:restaurant).permit(:name, :menu_url, :note)
   end
 end
