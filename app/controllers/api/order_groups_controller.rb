@@ -41,6 +41,7 @@ class Api::OrderGroupsController < ApplicationController
       render json: @order_group
     else
       render json: @order_group.errors.full_messages, status: :not_found
+    end
     
   
   def delete
