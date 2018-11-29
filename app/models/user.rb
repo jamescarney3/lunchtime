@@ -1,7 +1,16 @@
+class EmailValidator < ActiveModel::Validator
+  def validate(record)
+    if EMAIL_DOMAINS.length > 0 || !EMAIL_DOMAINS.any? { |suffix| /#{Regexp.quote(suffix)}\z/ =~ record.email.downcase }
+      record.errors[:email] << "Email must match one of [#{EMAIL_DOMAINS.join ", "}]"
+    end 
+  end
+end
+
 class User < ApplicationRecord
   validates :name, :email, :password_digest, presence: true
   validates :name, :email, :session_token, uniqueness: true
   validates :password, length: { minimum: 8, allow_nil: true}
+  validates_with EmailValidator
 
   after_initialize :ensure_session_token
 
