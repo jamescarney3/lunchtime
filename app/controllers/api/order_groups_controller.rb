@@ -4,16 +4,15 @@ class Api::OrderGroupsController < ApplicationController
   
   def new
     @order_group = OrderGroup.new
-    
     render json: @order_group
   end
   
   def create
-    @order_group = OrderGroup.create(order_group_params)
-    if !@order_group.nil?
+    @order_group = OrderGroup.new(order_group_params)
+    if @order_group.save
       render json: @order_group
     else
-      render json: @order_group.errors.full_messages, status: :unprocessable_entity
+      render @order_group.errors.full_messages, status: :unprocessable_entity
     end
   end
   
@@ -22,7 +21,7 @@ class Api::OrderGroupsController < ApplicationController
     if !@order_group.nil?
       render json: @order_group
     else
-      render json: @order_group.errors.full_messages, status: :not_found
+      render status: :not_found
     end
   end
   
@@ -40,7 +39,7 @@ class Api::OrderGroupsController < ApplicationController
     if !@order_group.nil?
       render json: @order_group
     else
-      render json: @order_group.errors.full_messages, status: :not_found
+      render status: :not_found
     end
     
   
@@ -49,7 +48,7 @@ class Api::OrderGroupsController < ApplicationController
     if @order_group.delete
       render json: @order_group
     else
-      render json: @order_group.errors.full_messages, status: :not_found
+      render status: :not_found
     end
   end
   

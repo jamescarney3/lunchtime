@@ -4,16 +4,15 @@ class Api::OrdersController < ApplicationController
   
   def new
     @order = Order.new
-    
     render json: @order
   end
   
   def create
-    @order = Order.create(order_params)
-    if !@order.nil?
+    @order = Order.new(order_params)
+    if @order.save
       render json: @order
     else
-      render json: @order.errors.full_messages, status: :unprocessable_entity
+      render @order.errors.full_messages, status: :unprocessable_entity
     end
   end
   
@@ -22,13 +21,13 @@ class Api::OrdersController < ApplicationController
     if !@order.nil?
       render json: @order
     else
-      render json: @order.errors.full_messages, status: :not_found
+      render status: :not_found
     end
   end
   
   def update
     @order = Order.find(params[:id])
-    if @order.save(order_params)
+    if @order.update(order_params)
       render json: @order
     else
       render json: @order.errors.full_messages, status: :not_found
@@ -40,7 +39,7 @@ class Api::OrdersController < ApplicationController
     if !@order.nil?
       render json: @order
     else
-      render json: @order.errors.full_messages, status: :not_found
+      render status: :not_found
     end
   end
   
@@ -49,7 +48,7 @@ class Api::OrdersController < ApplicationController
     if @order.delete
       render json: @order
     else
-      render json: @order.errors.full_messages, status: :not_found
+      render status: :not_found
     end
   end
   
