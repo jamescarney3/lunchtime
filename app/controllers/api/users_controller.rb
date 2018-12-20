@@ -19,7 +19,11 @@ class Api::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     if !@user.nil?
-      render json: @user
+      if @user.id = current_user.id
+        render json: @user
+      else
+        render json: :unauthorized
+      end
     else
       render status: :not_found
     end
@@ -28,7 +32,11 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if !@user.nil?
-      render json: @user
+      if @user.id = current_user.id
+        render json: @user
+      else
+        render json: :unauthorized
+      end
     else
       render status: :not_found
     end
@@ -37,7 +45,11 @@ class Api::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      render json: @user
+      if @user.id = current_user.id  
+        render json: @user
+      else
+        render json: :unauthorized
+      end
     else
       render status: :unprocessable_entity
     end
@@ -46,7 +58,11 @@ class Api::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     if @user.delete
-      render json: @user
+      if @user.id = current_user.id
+        render json: @user
+      else
+        render json: :unauthorized
+      end
     else
       render status: :not_found
     end
