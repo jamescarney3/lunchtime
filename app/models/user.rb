@@ -1,8 +1,8 @@
 class EmailValidator < ActiveModel::Validator
   def validate(record)
-    if EMAIL_DOMAINS.length > 0 || !EMAIL_DOMAINS.any? { |suffix| /#{Regexp.quote(suffix)}\z/ =~ record.email.downcase }
+    if !record.email_domain_is_in_allowed_list?(EMAIL_DOMAINS)
       record.errors[:email] << "Email must match one of [#{EMAIL_DOMAINS.join ", "}]"
-    end 
+    end
   end
 end
 
@@ -34,6 +34,17 @@ class User < ApplicationRecord
     self.session_token = User.generate_session_token
     self.save!
     self.session_token
+  end
+  
+  # for use in EmailValidator, implemented as instance method in order to
+  # decouple logic from magic automatically run rails subclass so this can
+  # be tested
+  def email_domain_is_in_allowed_list?(allowed_list = [])
+    if allowed_list.empty? || allowed_list.any? { |suffix| /#{Regexp.quote(suffix.downcase)}\z/ =~ email.downcase }
+      true
+    else
+      false
+    end
   end
 
   ### --- CLASS METHODS --- ###
