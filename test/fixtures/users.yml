@@ -1,0 +1,4 @@
+default:
+  name: User Name
+  email: <%= "username@" + (EMAIL_DOMAINS.empty? ? "fakedomain.xyz" : EMAIL_DOMAINS.first) %>
+  password_digest: <%= BCrypt::Password.create "blazeup420" %>

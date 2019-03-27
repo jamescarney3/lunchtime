@@ -1,0 +1,5 @@
+default:
+  text: dummy lunch; lunch for a dummy
+  user: default
+  order_group: default
+  note: dummy note; note for a dummy
