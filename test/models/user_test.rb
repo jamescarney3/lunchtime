@@ -6,11 +6,11 @@ class UserTest < ActiveSupport::TestCase
     @user = users :default
   end
   
-  test "should validate" do
+  test "instance should validate" do
     assert @user.valid?, "user instance is not valid"
   end
   
-  test "should check email instance variable against optional list of allowed domains" do
+  test "instance should verify email is in allowed domains" do
     assert @user.email_domain_is_in_allowed_list?([]), "returns false when allowed domains list is empty"
     
     right_domain = "bar.com"
@@ -21,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.email_domain_is_in_allowed_list?([wrong_domain]), "returns true when user email is not present in allowed domains list"
   end
   
-  test "should find with email and password" do
+  test "should find record with email and password" do
     @user.password = "testpassword"
     @user.save
     
