@@ -7,7 +7,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "instance should validate" do
-    assert @user.valid?, "user instance is not valid"
+    assert @user.valid?, "default user instance is not valid"
   end
   
   test "instance should verify email is in allowed domains" do
