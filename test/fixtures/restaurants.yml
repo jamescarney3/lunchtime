@@ -1,0 +1,4 @@
+default:
+  name: Restauranteur's House of Food
+  note: remember to pick some food!
+  menu_url: http://www.foo.bar
