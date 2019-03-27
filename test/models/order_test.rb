@@ -7,7 +7,7 @@ class OrderTest < ActiveSupport::TestCase
   end
   
   test "should validate" do
-    assert @order.valid?, "order instance is not valid"
+    assert @order.valid?, "default order instance is not valid"
   end
   
 end
